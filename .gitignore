@@ -1,0 +1,51 @@
+# Node dependencies
+node_modules/
+
+# Build output
+dist/
+build/
+
+# Vite cache
+.vite/
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Environment variables
+.env
+.env.*.local
+
+# OS-specific
+.DS_Store
+Thumbs.db
+
+# Editor folders and files
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# TypeScript cache
+*.tsbuildinfo
+
+# Parcel cache (if you ever use it)
+.cache/
+
+# Coverage from testing tools (e.g., Jest, Vitest)
+coverage/
+
+# Local development
+*.local
+*.log
+
+# Optional: lock files (only if you don't want to commit them — controversial)
+# package-lock.json
+# yarn.lock
+# pnpm-lock.yaml
+
+# Optional: output from storybook or static generators
+.out/
+storybook-static/
