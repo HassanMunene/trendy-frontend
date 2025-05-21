@@ -4,6 +4,14 @@ import { Menu, Search, X, Bell, ChevronDown, User, Settings, LogOut } from "luci
 import { useAuth } from "../../../context/AuthContext";
 import LogoutConfirmationModal from "./LogoutConfirmationModal";
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
+import {
+    DropdownMenu,
+    DropdownMenuTrigger,
+    DropdownMenuContent,
+    DropdownMenuLabel,
+    DropdownMenuSeparator,
+    DropdownMenuItem
+} from "@/components/ui/dropdown-menu";
 
 interface MainTopbarProps {
     toggleSidebar: () => void;
@@ -11,11 +19,8 @@ interface MainTopbarProps {
 }
 
 const MainTopbar = ({ toggleSidebar, isMobile }: MainTopbarProps) => {
-    const [isProfileDropdownOpen, setIsProfileDropdownOpen] = useState(false);
     const [showLogoutConfirmation, setShowLogoutConfirmation] = useState(false);
     const [isLoggingOut, setIsLoggingOut] = useState(false);
-    const dropdownRef = useRef(null);
-    const location = useLocation();
 
     const { logout } = useAuth();
 
@@ -23,7 +28,6 @@ const MainTopbar = ({ toggleSidebar, isMobile }: MainTopbarProps) => {
 
     const initiateLogout = () => {
         setShowLogoutConfirmation(true);
-        setIsProfileDropdownOpen(false);
     };
 
     const confirmLogout = () => {
@@ -97,58 +101,47 @@ const MainTopbar = ({ toggleSidebar, isMobile }: MainTopbarProps) => {
                         </button>
 
                         {/* Profile Dropdown */}
-                        <div className="relative" ref={dropdownRef}>
-                            <button
-                                className="flex items-center space-x-2 text-sm rounded-full focus:outline-none group"
-                                onClick={() => setIsProfileDropdownOpen(!isProfileDropdownOpen)}
-                                aria-label="User menu"
-                            >
-                                <div className="relative">
-                                    <img
-                                        className="h-8 w-8 rounded-full border-2 border-transparent group-hover:border-indigo-500 transition-all"
-                                        src="https://ui-avatars.com/api/?name=Admin+User&background=4f46e5&color=fff"
-                                        alt="Admin User"
-                                    />
-                                    <span className="absolute bottom-0 right-0 block h-2 w-2 rounded-full bg-green-500 ring-2 ring-gray-800"></span>
-                                </div>
-                                {!isMobile && (
-                                    <>
-                                        <span className="text-gray-300 font-medium">Admin User</span>
-                                        <ChevronDown className={`h-4 w-4 text-gray-400 transition-transform ${isProfileDropdownOpen ? 'rotate-180' : ''}`} />
-                                    </>
-                                )}
-                            </button>
-
-                            {isProfileDropdownOpen && (
-                                <div className="origin-top-right absolute right-0 mt-2 w-56 rounded-lg shadow-lg bg-gray-800 border border-gray-700 focus:outline-none z-50 overflow-hidden transition-all duration-200">
-                                    <div className="py-1">
-                                        <Link
-                                            to="/profile"
-                                            className="flex items-center px-4 py-2 text-sm text-gray-300 hover:bg-gray-700/50 transition-colors"
-                                            onClick={() => setIsProfileDropdownOpen(false)}
-                                        >
-                                            <User className="h-4 w-4 mr-3 text-gray-400" />
-                                            Your Profile
-                                        </Link>
-                                        <Link
-                                            to="/settings"
-                                            className="flex items-center px-4 py-2 text-sm text-gray-300 hover:bg-gray-700/50 transition-colors"
-                                            onClick={() => setIsProfileDropdownOpen(false)}
-                                        >
-                                            <Settings className="h-4 w-4 mr-3 text-gray-400" />
-                                            Settings
-                                        </Link>
-                                        <button
-                                            onClick={initiateLogout}
-                                            className="w-full flex items-center px-4 py-2 text-sm text-gray-300 hover:bg-gray-700/50 transition-colors text-left"
-                                        >
-                                            <LogOut className="h-4 w-4 mr-3 text-gray-400" />
-                                            Sign out
-                                        </button>
+                        <DropdownMenu>
+                            <DropdownMenuTrigger asChild>
+                                <button className="flex items-center space-x-2 text-sm rounded-full focus:outline-none group" aria-label="User menu">
+                                    <div className="relative">
+                                        <img
+                                            className="h-8 w-8 rounded-full border-2 border-transparent group-hover:border-indigo-500 transition-all"
+                                            src="https://ui-avatars.com/api/?name=Admin+User&background=4f46e5&color=fff"
+                                            alt="Admin User"
+                                        />
+                                        <span className="absolute bottom-0 right-0 block h-2 w-2 rounded-full bg-green-500 ring-2 ring-gray-800"></span>
                                     </div>
-                                </div>
-                            )}
-                        </div>
+                                    {!isMobile && (
+                                        <>
+                                            <span className="text-gray-300 font-medium">Admin User</span>
+                                        </>
+                                    )}
+                                </button>
+                            </DropdownMenuTrigger>
+                            <DropdownMenuContent>
+                                <DropdownMenuLabel>My Account</DropdownMenuLabel>
+                                <DropdownMenuSeparator />
+                                <DropdownMenuItem>
+                                    <Link to="/profile" className="w-full flex items-center">
+                                        <User className="h-4 w-4 mr-3 text-gray-400" />
+                                        Your Profile
+                                    </Link>
+                                </DropdownMenuItem>
+                                <DropdownMenuItem>
+                                    <Link to="/settings" className="w-full flex items-center">
+                                        <Settings className="h-4 w-4 mr-3 text-gray-400" />
+                                        Settings
+                                    </Link>
+                                </DropdownMenuItem>
+                                <DropdownMenuItem>
+                                    <button onClick={initiateLogout} className="w-full flex items-center">
+                                        <LogOut className="h-4 w-4 mr-3 text-gray-400" />
+                                        Sign out
+                                    </button>
+                                </DropdownMenuItem>
+                            </DropdownMenuContent>
+                        </DropdownMenu>
                     </div>
                 </div>
             </header>
