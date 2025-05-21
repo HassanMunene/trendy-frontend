@@ -4,7 +4,11 @@ import { Menu, Search, X, Bell, ChevronDown, User, Settings, LogOut } from "luci
 import { useAuth } from "../../../context/AuthContext";
 import LogoutConfirmationModal from "./LogoutConfirmationModal";
 
-const MainTopbar = ({ toggleSidebar }) => {
+interface MainTopbarProps {
+    toggleSidebarForMobile: () => void;
+}
+
+const MainTopbar = ({ toggleSidebarForMobile }: MainTopbarProps) => {
     const [isSearchOpen, setIsSearchOpen] = useState(false);
     const [isProfileDropdownOpen, setIsProfileDropdownOpen] = useState(false);
     const [showLogoutConfirmation, setShowLogoutConfirmation] = useState(false);
@@ -89,7 +93,7 @@ const MainTopbar = ({ toggleSidebar }) => {
                     <div className="flex items-center space-x-4">
                         {/* Sidebar Toggle */}
                         <button
-                            onClick={toggleSidebar}
+                            onClick={toggleSidebarForMobile}
                             className="text-gray-400 hover:text-white transition-colors"
                             aria-label="Toggle sidebar"
                         >

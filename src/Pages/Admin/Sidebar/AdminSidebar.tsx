@@ -17,7 +17,7 @@ const navLinks = [
 ];
 
 const AdminSidebar = () => {
-    // The sidebar could be hidden, collapsed and expanded
+    // The sidebar could be hidden, collapsed and expanded it is expanded by default.
     const [sidebarState, setSidebarState] = useState('expanded');
     const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
     const location = useLocation();
@@ -35,19 +35,20 @@ const AdminSidebar = () => {
         };
 
         window.addEventListener('resize', handleResize);
-        handleResize(); // Initialize
+        handleResize();
         return () => window.removeEventListener('resize', handleResize);
     }, []);
 
     const toggleSidebar = () => {
         if (!isMobile) {
-            setSidebarState(s => s === 'expanded' ? 'collapsed' : 'expanded');
+            setSidebarState((prev) => (
+                prev === 'expanded' ? 'collapsed' : 'expanded'
+            ));
         } else {
-            // Mobile cycle: hidden -> collapsed -> expanded -> hidden
-            setSidebarState(s =>
-                s === 'hidden' ? 'collapsed' :
-                    s === 'collapsed' ? 'expanded' : 'hidden'
-            );
+            // Mobile cycle: hidden -> expanded -> hidden
+            setSidebarState((prev) => (
+                prev === 'hidden' ? 'expanded' : 'hidden'
+            ));
         }
     };
 
