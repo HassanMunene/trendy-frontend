@@ -3,6 +3,7 @@ import { Link, useLocation } from "react-router-dom";
 import { Menu, Search, X, Bell, ChevronDown, User, Settings, LogOut } from "lucide-react";
 import { useAuth } from "../../../context/AuthContext";
 import LogoutConfirmationModal from "./LogoutConfirmationModal";
+import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 
 interface MainTopbarProps {
     toggleSidebar: () => void;
@@ -10,28 +11,13 @@ interface MainTopbarProps {
 }
 
 const MainTopbar = ({ toggleSidebar, isMobile }: MainTopbarProps) => {
-    const [isSearchOpen, setIsSearchOpen] = useState(false);
     const [isProfileDropdownOpen, setIsProfileDropdownOpen] = useState(false);
     const [showLogoutConfirmation, setShowLogoutConfirmation] = useState(false);
     const [isLoggingOut, setIsLoggingOut] = useState(false);
-    const searchRef = useRef(null);
     const dropdownRef = useRef(null);
     const location = useLocation();
 
     const { logout } = useAuth();
-
-    useEffect(() => {
-        const handleClickOutside = (event) => {
-            if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
-                setIsProfileDropdownOpen(false);
-            }
-            if (isSearchOpen && searchRef.current && !searchRef.current.contains(event.target)) {
-                setIsSearchOpen(false);
-            }
-        };
-        document.addEventListener('mousedown', handleClickOutside);
-        return () => document.removeEventListener('mousedown', handleClickOutside);
-    }, [isSearchOpen]);
 
     const handleLogout = () => logout();
 
@@ -53,32 +39,6 @@ const MainTopbar = ({ toggleSidebar, isMobile }: MainTopbarProps) => {
 
     return (
         <>
-            {/* Mobile Search Overlay */}
-            {isSearchOpen && (
-                <div className="md:hidden fixed inset-0 bg-black/50 z-40 backdrop-blur-sm">
-                    <div
-                        className="fixed top-0 left-0 right-0 bg-gray-800 shadow-lg z-50 p-3"
-                        ref={searchRef}
-                    >
-                        <div className="relative flex items-center">
-                            <Search className="absolute left-3 h-5 w-5 text-gray-400" />
-                            <input
-                                type="text"
-                                className="w-full pl-10 pr-10 py-2 bg-gray-700 text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 placeholder-gray-400"
-                                placeholder="Search..."
-                                autoFocus
-                            />
-                            <button
-                                onClick={() => setIsSearchOpen(false)}
-                                className="absolute right-3 text-gray-400 hover:text-white"
-                            >
-                                <X className="h-5 w-5" />
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            )}
-
             {/* Main Top Bar */}
             <header className="bg-gray-800 border-b border-gray-700 shadow-sm z-30">
                 <div className="px-4 py-3 flex items-center justify-between">
@@ -106,14 +66,29 @@ const MainTopbar = ({ toggleSidebar, isMobile }: MainTopbarProps) => {
                     </div>
 
                     <div className="flex items-center space-x-4">
-                        {/* Mobile Search Button */}
-                        <button
-                            className="md:hidden text-gray-400 hover:text-white"
-                            onClick={() => setIsSearchOpen(true)}
-                            aria-label="Search"
-                        >
-                            <Search className="h-5 w-5" />
-                        </button>
+                        {/* Mobile Search Button WITH A DIALOG*/}
+                        <Dialog>
+                            <DialogTrigger asChild>
+                                <button className="md:hidden text-gray-400 hover:text-white" aria-label="Search">
+                                    <Search className="h-5 w-5" />
+                                </button>
+                            </DialogTrigger>
+                            <DialogContent className="bg-gray-800 border border-gray-700 p-4 md:hidden">
+                                <div className="relative">
+                                    <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400" />
+                                    <input
+                                        type="text"
+                                        placeholder="Search..."
+                                        className="w-full pl-10 pr-10 py-2 bg-gray-700 text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 placeholder-gray-400"
+                                        autoFocus
+                                    />
+                                    {/* Optional close button if you want extra control */}
+                                    <button className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-white">
+                                        <X className="h-5 w-5" />
+                                    </button>
+                                </div>
+                            </DialogContent>
+                        </Dialog>
 
                         {/* Notifications */}
                         <button className="relative p-1 text-gray-400 hover:text-white rounded-full hover:bg-gray-700/50 transition-colors">
