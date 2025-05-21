@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
-import { StarIcon } from '@heroicons/react/24/solid';
+import { Star } from 'lucide-react';
 import { ChevronLeft, ChevronRight, Minus, Plus, ShoppingCart } from 'lucide-react';
 
 import NoProductFound from './NoProductFoundComponent';
@@ -63,16 +63,16 @@ const ProductDetailPage = () => {
         const hasHalfStar = product.rating % 1 >= 0.5;
 
         for (let i = 0; i < fullStars; i++) {
-            stars.push(<StarIcon key={`full-${i}`} className="w-5 h-5 text-amber-400" />);
+            stars.push(<Star key={`full-${i}`} className="w-5 h-5 text-amber-400" />);
         }
 
         if (hasHalfStar) {
-            stars.push(<StarIcon key="half" className="w-5 h-5 text-amber-400" />);
+            stars.push(<Star key="half" className="w-5 h-5 text-amber-400" />);
         }
 
         const emptyStars = 5 - stars.length;
         for (let i = 0; i < emptyStars; i++) {
-            stars.push(<StarIcon key={`empty-${i}`} className="w-5 h-5 text-gray-300" />);
+            stars.push(<Star key={`empty-${i}`} className="w-5 h-5 text-gray-300" />);
         }
 
         return stars;

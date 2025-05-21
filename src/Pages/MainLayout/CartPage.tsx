@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { XMarkIcon, ArrowLeftIcon } from '@heroicons/react/24/outline';
+import { X, ArrowLeft } from 'lucide-react';
 
 const CartPage = () => {
   // Sample cart data
@@ -49,7 +49,7 @@ const CartPage = () => {
         {/* Header */}
         <div className="flex justify-between items-center mb-8">
           <Link to="/" className="flex items-center text-rose-700 hover:text-rose-800">
-            <ArrowLeftIcon className="h-5 w-5 mr-1" />
+            <ArrowLeft className="h-5 w-5 mr-1" />
             <span className="font-medium">Continue Shopping</span>
           </Link>
           <h1 className="text-3xl font-bold text-gray-900">Your Cart</h1>
@@ -77,7 +77,7 @@ const CartPage = () => {
                         className="w-full h-full object-cover"
                       />
                       <button className="absolute top-0 right-0 bg-white rounded-full p-1 shadow-md transform translate-x-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-opacity">
-                        <XMarkIcon className="h-4 w-4 text-gray-500 hover:text-rose-600" />
+                        <X className="h-4 w-4 text-gray-500 hover:text-rose-600" />
                       </button>
                     </div>
                     <div>
