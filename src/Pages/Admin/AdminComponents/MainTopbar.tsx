@@ -5,28 +5,20 @@ import { useAuth } from "../../../context/AuthContext";
 import LogoutConfirmationModal from "./LogoutConfirmationModal";
 
 interface MainTopbarProps {
-    toggleSidebarForMobile: () => void;
+    toggleSidebar: () => void;
+    isMobile: boolean;
 }
 
-const MainTopbar = ({ toggleSidebarForMobile }: MainTopbarProps) => {
+const MainTopbar = ({ toggleSidebar, isMobile }: MainTopbarProps) => {
     const [isSearchOpen, setIsSearchOpen] = useState(false);
     const [isProfileDropdownOpen, setIsProfileDropdownOpen] = useState(false);
     const [showLogoutConfirmation, setShowLogoutConfirmation] = useState(false);
     const [isLoggingOut, setIsLoggingOut] = useState(false);
-    const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
     const searchRef = useRef(null);
     const dropdownRef = useRef(null);
     const location = useLocation();
 
     const { logout } = useAuth();
-
-    useEffect(() => {
-        const handleResize = () => {
-            setIsMobile(window.innerWidth < 768);
-        };
-        window.addEventListener('resize', handleResize);
-        return () => window.removeEventListener('resize', handleResize);
-    }, []);
 
     useEffect(() => {
         const handleClickOutside = (event) => {
@@ -93,7 +85,7 @@ const MainTopbar = ({ toggleSidebarForMobile }: MainTopbarProps) => {
                     <div className="flex items-center space-x-4">
                         {/* Sidebar Toggle */}
                         <button
-                            onClick={toggleSidebarForMobile}
+                            onClick={toggleSidebar}
                             className="text-gray-400 hover:text-white transition-colors"
                             aria-label="Toggle sidebar"
                         >

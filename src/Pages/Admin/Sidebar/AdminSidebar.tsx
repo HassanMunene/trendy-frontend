@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, Dispatch, SetStateAction } from "react";
 import { Link, useLocation } from "react-router-dom";
 import {
     Home, Boxes, ListChecks, ShoppingCart,
@@ -16,55 +16,25 @@ const navLinks = [
     { to: "/settings", icon: <Settings size={20} />, label: "Settings" },
 ];
 
-const AdminSidebar = () => {
-    // The sidebar could be hidden, collapsed and expanded it is expanded by default.
-    const [sidebarState, setSidebarState] = useState('expanded');
-    const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
-    const location = useLocation();
+interface AdminSidebarProps {
+    isMobile: boolean;
+    sidebarState: string;
+    isActive: (path: string) => boolean;
+    setSidebarState: Dispatch<SetStateAction<string>>;
+    handleOverlayClick: () => void;
+    toggleSidebar: () => void;
+    handleNavClick: () => void;
+}
 
-    // Handle responsive behavior
-    useEffect(() => {
-        const handleResize = () => {
-            const mobile = window.innerWidth < 768;
-            setIsMobile(mobile);
-            if (mobile) {
-                setSidebarState('hidden');
-            } else {
-                setSidebarState('expanded');
-            }
-        };
-
-        window.addEventListener('resize', handleResize);
-        handleResize();
-        return () => window.removeEventListener('resize', handleResize);
-    }, []);
-
-    const toggleSidebar = () => {
-        if (!isMobile) {
-            setSidebarState((prev) => (
-                prev === 'expanded' ? 'collapsed' : 'expanded'
-            ));
-        } else {
-            // Mobile cycle: hidden -> expanded -> hidden
-            setSidebarState((prev) => (
-                prev === 'hidden' ? 'expanded' : 'hidden'
-            ));
-        }
-    };
-
-    const handleNavClick = () => {
-        if (isMobile && sidebarState !== 'hidden') {
-            setSidebarState('hidden');
-        }
-    };
-
-    const isActive = (path) => location.pathname === path;
-
-    // Mobile overlay click handler
-    const handleOverlayClick = () => {
-        setSidebarState('hidden');
-    };
-
+const AdminSidebar = ({
+    isMobile,
+    sidebarState,
+    setSidebarState,
+    isActive,
+    handleOverlayClick,
+    toggleSidebar,
+    handleNavClick
+}: AdminSidebarProps) => {
     return (
         <>
             {/* Mobile hamburger button (only visible when sidebar is hidden) */}
