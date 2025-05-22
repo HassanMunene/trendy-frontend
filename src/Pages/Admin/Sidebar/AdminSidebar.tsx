@@ -67,26 +67,31 @@ const AdminSidebar = ({
                 `}
             >
                 {/* Logo/Header Section */}
-                <div className="h-16 flex items-center justify-between px-4 border-b border-gray-700">
+                <div className="h-16 border-b border-gray-700 px-4">
                     {sidebarState === 'expanded' ? (
-                        <div className="flex items-center space-x-2">
-                            <span className="font-bold text-lg tracking-tight truncate">Admin Panel</span>
+                        <div className="flex items-center justify-between h-full">
+                            <div className="flex items-center space-x-2">
+                                <span className="font-bold text-lg tracking-tight truncate">Admin Panel</span>
+                            </div>
+                            <button
+                                className="text-gray-400 hover:text-white focus:outline-none transition-colors duration-200 cursor-pointer"
+                                aria-label="Collapse sidebar"
+                                onClick={toggleSidebar}
+                            >
+                                <X size={20} />
+                            </button>
                         </div>
                     ) : (
-                        <div></div>
+                        <div className="flex items-center justify-center h-full">
+                            <button
+                                className="text-gray-400 hover:text-white focus:outline-none transition-colors duration-200 cursor-pointer"
+                                aria-label="Expand sidebar"
+                                onClick={toggleSidebar}
+                            >
+                                <Menu size={20} />
+                            </button>
+                        </div>
                     )}
-
-                    <button
-                        className="text-gray-400 hover:text-white focus:outline-none transition-colors duration-200"
-                        aria-label={sidebarState === 'expanded' ? "Collapse sidebar" : "Expand sidebar"}
-                        onClick={toggleSidebar}
-                    >
-                        {sidebarState === 'expanded' ? (
-                            <X size={20} />
-                        ) : (
-                            <Menu size={20} />
-                        )}
-                    </button>
                 </div>
 
                 {/* Navigation Links */}
