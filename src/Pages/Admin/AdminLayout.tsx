@@ -45,7 +45,7 @@ const AdminLayout = () => {
         }
     };
 
-    const isActive = (path) => location.pathname === path;
+    const isActive = (path: string) => location.pathname === path;
 
     // Mobile overlay click handler
     const handleOverlayClick = () => {
