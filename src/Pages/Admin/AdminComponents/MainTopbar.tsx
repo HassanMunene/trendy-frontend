@@ -1,5 +1,5 @@
-import { useRef, useState, useEffect } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { useState } from "react";
+import { Link } from "react-router-dom";
 import { Menu, Search, X, Bell, ChevronDown, User, Settings, LogOut } from "lucide-react";
 import { useAuth } from "../../../context/AuthContext";
 import LogoutConfirmationModal from "./LogoutConfirmationModal";
@@ -44,7 +44,7 @@ const MainTopbar = ({ toggleSidebar, isMobile }: MainTopbarProps) => {
     return (
         <>
             {/* Main Top Bar */}
-            <header className="bg-gray-800 border-b border-gray-700 shadow-sm z-30">
+            <header className="bg-gray-900 border-b border-gray-700 shadow-sm z-30">
                 <div className="px-4 py-3 flex items-center justify-between">
                     <div className="flex items-center space-x-4">
                         {/* Sidebar Toggle */}

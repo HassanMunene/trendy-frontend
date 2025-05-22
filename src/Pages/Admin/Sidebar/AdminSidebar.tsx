@@ -1,9 +1,10 @@
-import { useState, useEffect, Dispatch, SetStateAction } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Dispatch, SetStateAction } from "react";
+import { Link } from "react-router-dom";
 import {
     Home, Boxes, ListChecks, ShoppingCart,
     Users2, Bell, LineChart, Settings, User, Menu, X
 } from "lucide-react";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 
 const navLinks = [
     { to: "/admin", icon: <Home size={20} />, label: "Dashboard" },
@@ -93,48 +94,43 @@ const AdminSidebar = ({
                     <ul className="space-y-1 px-2">
                         {navLinks.map((link) => (
                             <li key={link.to} className="relative group">
-                                <Link
-                                    to={link.to}
-                                    onClick={handleNavClick}
-                                    className={`flex items-center rounded-lg py-2.5 transition-all duration-200 ease-out
-                                        ${sidebarState === 'collapsed' ? 'justify-center px-0 mx-2' : 'px-3 mx-1'}
-                                        ${isActive(link.to) ? 'text-white bg-gray-700/80' : 'text-gray-300 hover:text-white hover:bg-gray-700/60'}
-                                        relative
-                                    `}
-                                    aria-label={link.label}
-                                >
-                                    <span className="flex-shrink-0 relative">
-                                        {link.icon}
-                                        {link.badge && (
-                                            <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center">
-                                                {link.badge}
-                                            </span>
-                                        )}
-                                    </span>
-                                    <span
-                                        className={`transition-all duration-200 ease-out
+                                <TooltipProvider>
+                                    <Tooltip>
+                                        <TooltipTrigger asChild>
+                                            <Link
+                                                to={link.to}
+                                                onClick={handleNavClick}
+                                                className={`flex items-center rounded-lg py-2.5 transition-all duration-200 ease-out ${sidebarState === 'collapsed' ? 'justify-center px-0 mx-2' : 'px-3 mx-1'}
+                                                    ${isActive(link.to) ? 'text-white bg-gray-700/80' : 'text-gray-300 hover:text-white hover:bg-gray-700/60'} relative`}
+                                                aria-label={link.label}
+                                            >
+                                                <span className="flex-shrink-0 relative">
+                                                    {link.icon}
+                                                    {link.badge && (
+                                                        <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center">
+                                                            {link.badge}
+                                                        </span>
+                                                    )}
+                                                </span>
+                                                <span
+                                                    className={`transition-all duration-200 ease-out
                                             ${sidebarState !== 'expanded' ? 'opacity-0 w-0 overflow-hidden' : 'opacity-100 w-auto ml-3'}
                                         `}
-                                    >
-                                        {link.label}
-                                    </span>
-                                    {isActive(link.to) && (
-                                        <span className="absolute right-0 top-1/2 -translate-y-1/2 w-1 h-6 bg-indigo-500 rounded-l-lg"></span>
-                                    )}
-                                </Link>
-
-                                {/* Tooltip for collapsed state */}
-                                {sidebarState === 'collapsed' && (
-                                    <div className="absolute left-full top-1/2 -translate-y-1/2 ml-4 bg-gray-900 text-white px-3 py-2 rounded-lg shadow-xl text-sm font-medium opacity-0 pointer-events-none group-hover:opacity-100 transition-opacity duration-200 whitespace-nowrap z-50 min-w-max border border-gray-700 flex items-center">
-                                        {link.label}
-                                        {link.badge && (
-                                            <span className="ml-2 bg-red-500 text-white text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center">
-                                                {link.badge}
-                                            </span>
+                                                >
+                                                    {link.label}
+                                                </span>
+                                                {isActive(link.to) && (
+                                                    <span className="absolute right-0 top-1/2 -translate-y-1/2 w-1 h-6 bg-indigo-500 rounded-l-lg"></span>
+                                                )}
+                                            </Link>
+                                        </TooltipTrigger>
+                                        {sidebarState === 'collapsed' && (
+                                            <TooltipContent side="right" className="z-50">
+                                                <p>{link.label}</p>
+                                            </TooltipContent>
                                         )}
-                                        <div className="absolute -left-1 top-1/2 -translate-y-1/2 w-2 h-2 bg-gray-900 rotate-45 border-l border-t border-gray-700"></div>
-                                    </div>
-                                )}
+                                    </Tooltip>
+                                </TooltipProvider>
                             </li>
                         ))}
                     </ul>
