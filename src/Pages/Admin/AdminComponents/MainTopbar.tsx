@@ -50,7 +50,7 @@ const MainTopbar = ({ toggleSidebar, isMobile }: MainTopbarProps) => {
                         {/* Sidebar Toggle */}
                         <button
                             onClick={toggleSidebar}
-                            className="text-gray-400 hover:text-white transition-colors"
+                            className="text-gray-400 hover:text-white transition-colors md:hidden"
                             aria-label="Toggle sidebar"
                         >
                             <Menu className="h-6 w-6" />
@@ -103,7 +103,10 @@ const MainTopbar = ({ toggleSidebar, isMobile }: MainTopbarProps) => {
                         {/* Profile Dropdown */}
                         <DropdownMenu>
                             <DropdownMenuTrigger asChild>
-                                <button className="flex items-center space-x-2 text-sm rounded-full focus:outline-none group" aria-label="User menu">
+                                <button
+                                    className="flex items-center space-x-2 text-sm rounded-full focus:outline-none group cursor-pointer"
+                                    aria-label="User menu"
+                                >
                                     <div className="relative">
                                         <img
                                             className="h-8 w-8 rounded-full border-2 border-transparent group-hover:border-indigo-500 transition-all"

@@ -1,11 +1,23 @@
-import { createContext, useState, useEffect, useContext } from "react";
+import { createContext, useState, useEffect, useContext, ReactNode } from "react";
 
-export const AuthContext = createContext();
+interface AuthContextType {
+    isAuthenticated: boolean;
+    user: any;
+    token: string | null;
+    loading: boolean;
+    login: (userData: any, token: string) => void;
+    logout: () => void;
+    updateProfile: (profileData: any) => Promise<void>;
+    updateUserToLocalstorage: (userData: any) => void;
+    updatePassword: (currentPassword: string, newPassword: string) => Promise<void>;
+}
 
-export const AuthProvider = ({ children }) => {
+export const AuthContext = createContext<AuthContextType | undefined>(undefined);
+
+export const AuthProvider = ({ children }: { children: ReactNode }) => {
     const [isAuthenticated, setIsAuthenticated] = useState(false)
     const [user, setUser] = useState(null);
-    const [token, setToken] = useState(null);
+    const [token, setToken] = useState<string | null>(null);
     const [loading, setLoading] = useState(true);
 
     const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
@@ -23,7 +35,7 @@ export const AuthProvider = ({ children }) => {
         setLoading(false);
     }, []);
 
-    const login = (userData, token) => {
+    const login = (userData: any, token: string) => {
         localStorage.setItem("token", token);
         localStorage.setItem("user", JSON.stringify(userData));
         setIsAuthenticated(true);
@@ -38,7 +50,7 @@ export const AuthProvider = ({ children }) => {
     }
 
     // this is the update profile function
-    const updateProfile = async (profileData) => {
+    const updateProfile = async (profileData: any) => {
         const storedToken = localStorage.getItem("token");
         try {
             const response = await fetch(`${API_URL}/profile/update-profile`, {
@@ -62,11 +74,11 @@ export const AuthProvider = ({ children }) => {
             throw error;
         }
     }
-    const updateUserToLocalstorage = (userData) => {
+    const updateUserToLocalstorage = (userData: any) => {
         localStorage.setItem('user', JSON.stringify(userData));
     }
     // this is the change password function
-    const updatePassword = async (currentPassword, newPassword) => {
+    const updatePassword = async (currentPassword: string, newPassword: string) => {
         try {
             const token = localStorage.getItem("token");
             const response = await fetch(`${API_URL}/auth/change-password`, {
@@ -98,6 +110,7 @@ export const AuthProvider = ({ children }) => {
 
     return (
         <AuthContext.Provider value={{
+            token,
             isAuthenticated,
             user,
             loading,
