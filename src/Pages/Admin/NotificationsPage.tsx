@@ -15,7 +15,7 @@ function getIcon(type: string) {
   }
 }
 
-export default function Notifications() {
+export default function NotificationsPage() {
   return (
     <div className="space-y-6">
       <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-3 mb-2">

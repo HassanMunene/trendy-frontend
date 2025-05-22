@@ -1,4 +1,4 @@
-import React, { lazy, Suspense } from 'react';
+import { lazy, Suspense } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 import './App.css';
@@ -23,11 +23,14 @@ const RegistePage = lazy(() => import('./Pages/Authentication/RegisterPage'));
 const AdminLayout = lazy(() => import('./Pages/Admin/AdminLayout'));
 const DashboardPage = lazy(() => import('./Pages/Admin/DashboardPage'));
 const ProfilePage = lazy(() => import('./Pages/Admin/ProfilePage/ProfilePage'));
-const MessagesPage = lazy(() => import('./Pages/Admin/MessagesPage/index'));
+// const MessagesPage = lazy(() => import('./Pages/Admin/MessagesPage/index'));
+const UsersPage = lazy(() => import('./Pages/Admin/UsersPage'));
+const NotificationsPage = lazy(() => import('./Pages/Admin/NotificationsPage'));
 const OrdersPage = lazy(() => import('./Pages/Admin/OrdersPage'));
 const AdminProductsPage = lazy(() => import('./Pages/Admin/AdminProductsPage'));
 const CustomersPage = lazy(() => import('./Pages/Admin/CustomersPage'));
 const CategoriesPage = lazy(() => import('./Pages/Admin/CategoriesPage'));
+const AnalyticsPage = lazy(() => import('./Pages/Admin/AnalyticsPage'));
 
 function App() {
 	return (
@@ -54,7 +57,10 @@ function App() {
 								<Route path='/admin' element={<AdminLayout />}>
 									<Route index element={<DashboardPage />} />
 									<Route path='profile' element={<ProfilePage />} />
-									<Route path="messages" element={<MessagesPage />} />
+									{/* <Route path="messages" element={<MessagesPage />} /> */}
+									<Route path="users" element={<UsersPage />} />
+									<Route path="notifications" element={< NotificationsPage />} />
+									<Route path="analytics" element={<AnalyticsPage />} />
 									<Route path='orders' element={<OrdersPage />} />
 									<Route path='products' element={<AdminProductsPage />} />
 									<Route path='customers' element={<CustomersPage />} />

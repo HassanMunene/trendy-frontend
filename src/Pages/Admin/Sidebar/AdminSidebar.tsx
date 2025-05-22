@@ -6,14 +6,14 @@ import {
 } from "lucide-react";
 
 const navLinks = [
-    { to: "/", icon: <Home size={20} />, label: "Dashboard" },
-    { to: "/products", icon: <Boxes size={20} />, label: "Products" },
-    { to: "/categories", icon: <ListChecks size={20} />, label: "Categories" },
-    { to: "/orders", icon: <ShoppingCart size={20} />, label: "Orders" },
-    { to: "/users", icon: <Users2 size={20} />, label: "Users" },
-    { to: "/notifications", icon: <Bell size={20} />, label: "Notifications", badge: 5 },
-    { to: "/analytics", icon: <LineChart size={20} />, label: "Analytics" },
-    { to: "/settings", icon: <Settings size={20} />, label: "Settings" },
+    { to: "/admin", icon: <Home size={20} />, label: "Dashboard" },
+    { to: "/admin/products", icon: <Boxes size={20} />, label: "Products" },
+    { to: "/admin/categories", icon: <ListChecks size={20} />, label: "Categories" },
+    { to: "/admin/orders", icon: <ShoppingCart size={20} />, label: "Orders" },
+    { to: "/admin/users", icon: <Users2 size={20} />, label: "Users" },
+    { to: "/admin/notifications", icon: <Bell size={20} />, label: "Notifications", badge: 5 },
+    { to: "/admin/analytics", icon: <LineChart size={20} />, label: "Analytics" },
+    { to: "/admin/profile", icon: <Settings size={20} />, label: "Settings" },
 ];
 
 interface AdminSidebarProps {
