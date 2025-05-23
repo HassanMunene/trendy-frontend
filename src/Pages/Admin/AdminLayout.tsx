@@ -1,59 +1,62 @@
 import { useState, useEffect } from 'react';
 import { Outlet, useLocation } from 'react-router-dom';
+import {
+    Breadcrumb,
+    BreadcrumbItem,
+    BreadcrumbLink,
+    BreadcrumbList,
+    BreadcrumbPage,
+    BreadcrumbSeparator
+} from '@/components/ui/breadcrumb';
+import { Separator } from "@/components/ui/separator"
+import {
+    SidebarInset,
+    SidebarProvider,
+    SidebarTrigger,
+} from "@/components/ui/sidebar"
 
-import AdminSidebar from './Sidebar/AdminSidebar';
+
+
+// import AdminSidebar from './Sidebar/AdminSidebar';
+import { AdminSidebar } from '@/Components/admin/AdminSidebar';
 import MainTopbar from './AdminComponents/MainTopbar';
 
 const AdminLayout = () => {
-    const [sidebarState, setSidebarState] = useState('expanded');
-    const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
-    const location = useLocation();
-
-    // Handle responsive behavior
-    useEffect(() => {
-        const handleResize = () => {
-            const mobile = window.innerWidth < 768;
-            setIsMobile(mobile);
-            if (mobile) {
-                setSidebarState('hidden');
-            } else {
-                setSidebarState('expanded');
-            }
-        };
-
-        window.addEventListener('resize', handleResize);
-        handleResize();
-        return () => window.removeEventListener('resize', handleResize);
-    }, []);
-
-    const toggleSidebar = () => {
-        if (!isMobile) {
-            setSidebarState((prev) => (
-                prev === 'expanded' ? 'collapsed' : 'expanded'
-            ));
-        } else {
-            // Mobile cycle: hidden -> expanded -> hidden
-            setSidebarState((prev) => (
-                prev === 'hidden' ? 'expanded' : 'hidden'
-            ));
-        }
-    };
-
-    const handleNavClick = () => {
-        if (isMobile && sidebarState !== 'hidden') {
-            setSidebarState('hidden');
-        }
-    };
-
-    const isActive = (path: string) => location.pathname === path;
-
-    // Mobile overlay click handler
-    const handleOverlayClick = () => {
-        setSidebarState('hidden');
-    };
-
     return (
-        <div className="flex h-screen w-screen bg-gradient-to-br from-white via-rose-50 to-black overflow-hidden transition-colors">
+        <>
+            <SidebarProvider>
+                <AdminSidebar />
+                <SidebarInset>
+                    <header className="flex h-16 shrink-0 items-center gap-2 transition-[width,height] ease-linear group-has-[[data-collapsible=icon]]/sidebar-wrapper:h-12">
+                        <div className="flex items-center gap-2 px-4">
+                            <SidebarTrigger className="-ml-1" />
+                            <Separator orientation="vertical" className="mr-2 h-4" />
+                            <Breadcrumb>
+                                <BreadcrumbList>
+                                    <BreadcrumbItem className="hidden md:block">
+                                        <BreadcrumbLink href="#">
+                                            Building Your Application
+                                        </BreadcrumbLink>
+                                    </BreadcrumbItem>
+                                    <BreadcrumbSeparator className="hidden md:block" />
+                                    <BreadcrumbItem>
+                                        <BreadcrumbPage>Data Fetching</BreadcrumbPage>
+                                    </BreadcrumbItem>
+                                </BreadcrumbList>
+                            </Breadcrumb>
+                        </div>
+                    </header>
+                    <div className="flex flex-1 flex-col gap-4 p-4 pt-0">
+                        <div className="grid auto-rows-min gap-4 md:grid-cols-3">
+                            <div className="aspect-video rounded-xl bg-muted/50" />
+                            <div className="aspect-video rounded-xl bg-muted/50" />
+                            <div className="aspect-video rounded-xl bg-muted/50" />
+                        </div>
+                        <div className="min-h-[100vh] flex-1 rounded-xl bg-muted/50 md:min-h-min" />
+                    </div>
+                </SidebarInset>
+            </SidebarProvider>
+            {/* <div className="flex h-screen w-screen bg-gradient-to-br from-white via-rose-50 to-black overflow-hidden transition-colors">
             <AdminSidebar
                 isMobile={isMobile}
                 sidebarState={sidebarState}
@@ -69,7 +72,8 @@ const AdminLayout = () => {
                     <Outlet />
                 </main>
             </div>
-        </div>
+        </div> */}
+        </>
     );
 };
 
