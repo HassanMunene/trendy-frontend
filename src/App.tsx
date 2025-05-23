@@ -1,5 +1,6 @@
 import { lazy, Suspense } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { ThemeProvider } from './components/theme-provider';
 
 import './App.css';
 
@@ -37,38 +38,40 @@ function App() {
 		<BrowserRouter>
 			<AuthProvider>
 				<MobileProvider>
-					{/* Suspense is used to show a fallback loading while the component is being loaded */}
-					<Suspense fallback={<LoadingScreen />}>
-						{/* This is the main layouts page */}
-						<Routes>
-							<Route path="/" element={<MainLayout />}>
-								<Route index element={<HomePage />} />
-								<Route path="products" element={<ProductsPage />} />
-								<Route path="products/:productId" element={<ProductDetailPage />} />
-								<Route path="/cart" element={<CartPage />} />
-							</Route>
-
-							{/* Authentication Routes */}
-							<Route path='/login' element={<LoginPage />} />
-							<Route path="/register" element={<RegistePage />} />
-
-							{/* the next one is the admin layout page */}
-							<Route element={<ProtectedRoute />}>
-								<Route path='/admin' element={<AdminLayout />}>
-									<Route index element={<DashboardPage />} />
-									<Route path='profile' element={<ProfilePage />} />
-									{/* <Route path="messages" element={<MessagesPage />} /> */}
-									<Route path="users" element={<UsersPage />} />
-									<Route path="notifications" element={< NotificationsPage />} />
-									<Route path="analytics" element={<AnalyticsPage />} />
-									<Route path='orders' element={<OrdersPage />} />
-									<Route path='products' element={<AdminProductsPage />} />
-									<Route path='customers' element={<CustomersPage />} />
-									<Route path="categories" element={<CategoriesPage />} />
+					<ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
+						{/* Suspense is used to show a fallback loading while the component is being loaded */}
+						<Suspense fallback={<LoadingScreen />}>
+							{/* This is the main layouts page */}
+							<Routes>
+								<Route path="/" element={<MainLayout />}>
+									<Route index element={<HomePage />} />
+									<Route path="products" element={<ProductsPage />} />
+									<Route path="products/:productId" element={<ProductDetailPage />} />
+									<Route path="/cart" element={<CartPage />} />
 								</Route>
-							</Route>
-						</Routes>
-					</Suspense>
+
+								{/* Authentication Routes */}
+								<Route path='/login' element={<LoginPage />} />
+								<Route path="/register" element={<RegistePage />} />
+
+								{/* the next one is the admin layout page */}
+								<Route element={<ProtectedRoute />}>
+									<Route path='/admin' element={<AdminLayout />}>
+										<Route index element={<DashboardPage />} />
+										<Route path='profile' element={<ProfilePage />} />
+										{/* <Route path="messages" element={<MessagesPage />} /> */}
+										<Route path="users" element={<UsersPage />} />
+										<Route path="notifications" element={< NotificationsPage />} />
+										<Route path="analytics" element={<AnalyticsPage />} />
+										<Route path='orders' element={<OrdersPage />} />
+										<Route path='products' element={<AdminProductsPage />} />
+										<Route path='customers' element={<CustomersPage />} />
+										<Route path="categories" element={<CategoriesPage />} />
+									</Route>
+								</Route>
+							</Routes>
+						</Suspense>
+					</ThemeProvider>
 				</MobileProvider>
 			</AuthProvider>
 		</BrowserRouter>
