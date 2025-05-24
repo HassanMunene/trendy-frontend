@@ -15,8 +15,9 @@ interface AuthContextType {
 export const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
-    const [isAuthenticated, setIsAuthenticated] = useState(false)
-    const [user, setUser] = useState(null);
+    // const [isAuthenticated, setIsAuthenticated] = useState(false)
+    const [isAuthenticated, setIsAuthenticated] = useState(true)
+    const [user, setUser] = useState<any>(null);
     const [token, setToken] = useState<string | null>(null);
     const [loading, setLoading] = useState(true);
 
@@ -25,13 +26,19 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     useEffect(() => {
         const storedToken = localStorage.getItem("token");
         setToken(storedToken);
-        const userData = localStorage.getItem("user");
+        // const userData = localStorage.getItem("user");
+        // dummy UserData for now so we dont have to deal with backend for now
+        const userData = {
+            name: "Aziza Khamisi",
+            email: "nkhatha.khamisi@gmail.com"
+        }
+        
 
         if (storedToken && userData) {
             setIsAuthenticated(true);
-            setUser(JSON.parse(userData));
+            // setUser(JSON.parse(userData));
+            setUser(userData);
         }
-
         setLoading(false);
     }, []);
 

@@ -5,6 +5,7 @@ import LoadingScreen from "./LoadingScreen";
 
 const ProtectedRoute = () => {
     const { isAuthenticated, loading } = useAuth();
+    console.log("Somememem", isAuthenticated)
     
     if (loading) {
         return (

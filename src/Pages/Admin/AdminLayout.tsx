@@ -18,10 +18,10 @@ import {
 } from "@/components/ui/sidebar";
 import { Menu, Search, X, Bell, ChevronDown, User, Settings, LogOut } from "lucide-react";
 
-
 // import AdminSidebar from './Sidebar/AdminSidebar';
-import { AdminSidebar } from '@/Components/admin/AdminSidebar';
+import { AdminSidebar } from '@/components/admin/AdminSidebar';
 import MainTopbar from './AdminComponents/MainTopbar';
+import { ThemeModeToggler } from '@/components/ThemeModeToggler';
 
 const AdminLayout = () => {
     return (
@@ -49,6 +49,8 @@ const AdminLayout = () => {
                                 <Bell className="h-6 w-6" />
                                 <span className="absolute top-0 right-0 h-2 w-2 rounded-full bg-red-500"></span>
                             </button>
+
+                            <ThemeModeToggler />
 
                             {/* Profile Dropdown */}
                             <DropdownMenu>

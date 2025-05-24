@@ -6,7 +6,7 @@ import './App.css';
 
 import { AuthProvider } from './context/AuthContext';
 import { MobileProvider } from './context/MobileContext';
-import ProtectedRoute from './Components/ProtectedRoute';
+import ProtectedRoute from './components/ProtectedRoute';
 import MainLayout from './Layouts/MainLayout';
 import LoadingScreen from './Components/LoadingScreen';
 
