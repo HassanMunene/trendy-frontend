@@ -8,7 +8,7 @@ import {
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 // Removed duplicate import, as DropdownMenu is already imported above
-import { useTheme } from "./Theme-provider"
+import { useTheme } from "./theme-provider"
 
 export function ThemeModeToggler() {
     const { setTheme } = useTheme()
