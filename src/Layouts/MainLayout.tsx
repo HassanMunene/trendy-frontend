@@ -1,7 +1,7 @@
 import { Outlet } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 
-import Header from '../Components/MainLayout/Header';
+import Header from '../components/MainLayout/Header';
 
 const MainLayout = () => {
     const [scrolled, setScrolled] = useState(false);
