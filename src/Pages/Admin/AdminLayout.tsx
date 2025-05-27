@@ -1,7 +1,4 @@
-import { useState, useEffect } from 'react';
-import { Outlet, useLocation } from 'react-router-dom';
 import { Link } from "react-router-dom";
-
 import {
     DropdownMenu,
     DropdownMenuTrigger,
@@ -16,11 +13,10 @@ import {
     SidebarProvider,
     SidebarTrigger,
 } from "@/components/ui/sidebar";
-import { Menu, Search, X, Bell, ChevronDown, User, Settings, LogOut } from "lucide-react";
+import { Search, Bell, User, Settings, LogOut } from "lucide-react";
 
 // import AdminSidebar from './Sidebar/AdminSidebar';
 import { AdminSidebar } from '@/components/admin/AdminSidebar';
-import MainTopbar from './AdminComponents/MainTopbar';
 import { ThemeModeToggler } from '@/components/ThemeModeToggler';
 
 const AdminLayout = () => {
@@ -105,23 +101,6 @@ const AdminLayout = () => {
                     </div>
                 </SidebarInset>
             </SidebarProvider>
-            {/* <div className="flex h-screen w-screen bg-gradient-to-br from-white via-rose-50 to-black overflow-hidden transition-colors">
-            <AdminSidebar
-                isMobile={isMobile}
-                sidebarState={sidebarState}
-                isActive={isActive}
-                setSidebarState={setSidebarState}
-                handleOverlayClick={handleNavClick}
-                toggleSidebar={toggleSidebar}
-                handleNavClick={handleNavClick}
-            />
-            <div className="flex-1 flex flex-col transition-all duration-300">
-                <MainTopbar toggleSidebar={toggleSidebar} isMobile={isMobile} />
-                <main className="flex-1 p-4 overflow-auto bg-white/80 transition-colors">
-                    <Outlet />
-                </main>
-            </div>
-        </div> */}
         </>
     );
 };
